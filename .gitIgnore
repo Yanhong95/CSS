@@ -1,8 +1,8 @@
 # Created by https://www.gitignore.io/api/node,bower,osx,linux,windows,dropbox,sass,less,grunt,sublimetext,code
-.png
-.jpg
-.mp4
-.webm
+*.png
+*.jpg
+*.mp4
+*.webm
 
 ### Node ###
 # Logs
