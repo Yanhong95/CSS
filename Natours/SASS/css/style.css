@@ -1,0 +1,226 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+* 
+*::after
+*::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+
+.header {
+  height: 95vh; /*  header 高度占95% */
+  /* 背景色彩线性梯度变化从左到右 从 #7ed56f 到 #28b485 */
+  background-image: linear-gradient( 
+          to right bottom, 
+        rgba(126, 213, 111, 0.8), /*  最后一个显示透明度 */
+        rgba(40, 180, 133, 0.8)), 
+          url(../img/hero.jpg);
+  /* cover 背景图片填充,  contain 就是适合图片尺寸的重复平铺  */
+  background-size: cover;
+  /* 不管如何缩放, 图片顶部保持不变  */
+  background-position: top;
+  position: relative;
+  /* 将背景图片切割成不规则多边形, 下面四个就是四边形 下面四个坐标就是图片 左上 右上 右下 左下 四个点的坐标对应比例 */
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+}
+
+.header__logo-box{
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+}
+
+.header__logo{
+  height: 3rem;
+}
+
+.header__text-box{
+  /*  绝对位置 */
+  position: absolute;
+  /* 左右都移到相对父元素的一半, 这样这个block的左上角就是在正中心 */
+  top: 40%;
+  left: 50%;
+  /* 然后使用translate, 这个是对block自己而言的, 相当于将自己往左边移动自己的一半, 将自己往上面移动自己的一半 */
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.heading-primary{
+  color: #fff;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 6rem;
+}
+
+.heading-primary--main{
+  /* 让这个元素独占一行 */
+  display: block;
+  font-size: 6rem;
+  font-weight: 400;
+  /* 增加字间隔 */
+  letter-spacing: 3.5rem;
+  /* 动画名 */
+  animation-name: moveInLeft;
+  /* 动画时间 */
+  animation-duration: 1s;
+  /* 3秒后进行动画 */
+  /* animation-delay: 3s; */
+  /* 循环三次 */
+  /* animation-iteration-count: 3; */
+  /* 先快后慢 */
+  /* animation-timing-function: ease-in;
+  /* 先慢后快 */
+  /* animation-timing-function: ease-out; */
+}
+
+.heading-primary--sub{
+  display: block;
+  font-size: 2rem;
+  font-weight: 700; 
+  letter-spacing: 1.75rem;
+  /* 动画名 */
+  animation-name: moveInRight;
+  /* 动画时间 */
+  animation-duration: 1s;
+}
+
+/* 左近右出然后回到基准点的的动画 */
+@keyframes moveInLeft{
+  0% {
+    /* 开始的时候是透明的 */
+    opacity: 0;
+    /* 开始的时候位置在以自己为基准的左边100px */
+    transform: translateX(-10rem);
+  }
+  80% {
+    /* 80的时候位置在以自己为基准的右边10px */
+    transform: translateX(1rem);
+  }
+  100% {
+    /* 结束的时候不透明 */
+    opacity: 1;
+    /* 结束的时候在原地不变 */
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight{
+  0% {
+    /* 开始的时候是透明的 */
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+  80% {
+    transform: translateX(-1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInBottum{
+  0% {
+
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* The :link CSS pseudo-class represents an element that has not yet been visited. 
+It matches every unvisited <a>, <area>, or <link> element that has an href attribute. */
+.btn:link,
+.btn:visited{
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4.0rem;
+  /* inline-block 让它独占一行, 不贴着上面, 
+    由于这个是text 上面有 text-align: center;
+    他会自动居中*/
+  display: inline-block;
+  border-radius: 10rem;
+  /* 基于这个btn的所有动画都被允许, 动画时间为0.2s */
+  transition: all .2s;
+  position: relative;
+  font-size: 1.6rem;
+}
+
+.btn:hover{
+  /* hover的时候向上移动3px */
+  transform: translateY(-0.3rem);
+  /* hover的时候 x轴没有shadow, y轴10pxshadow 然后20px的模糊, 不是规则的shadow 而是渐变的*/
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.2) ;
+}
+
+.btn:active{
+  /* 点击的时候向下移动1px */
+  transform: translateY(-1px);
+  /* 点击的时候 x轴没有shadow, y轴5pxshadow 然后10px的模糊, 不是规则的shadow 而是渐变的*/
+  /* 这里的阴影比上面的短, 有一种悬空点击下沉的感觉 */
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+}
+
+.btn--white {
+  background-color: #fff;
+  color: #777;
+}
+
+/* after pseudo 是后期添加的element 当btn被选中后显示 */
+.btn::after{
+  /* content 和 display 是必须的 */
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  /* 这个after元素, 在btnz轴后面, top left为0, 那么就是完全后面  */
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all .4s;
+}
+
+.btn--white::after {
+  background-color: #fff;
+}
+
+.btn:hover::after {
+  /* x轴扩大1.4倍, y轴扩大1.6倍, 扩大之后变透明 */
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.btn--animated {
+  /* animation name, duration, timing function;  delay */
+  animation: moveInBottum .5s ease-out .75s;
+  /* 设置动画开始之前没有 */
+  animation-fill-mode: backwards;
+}
