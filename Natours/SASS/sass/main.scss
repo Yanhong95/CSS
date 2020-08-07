@@ -1,7 +1,8 @@
 $color-primary: #55c57a;
 $color-primary-light :#7ed56f;
 $color-primary-dark: #28b485;
-
+$color-gray-dark: #777;
+$color-white: #fff;
 * 
 *::after
 *::before{
@@ -19,7 +20,7 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
-  color: #777;
+  color: $color-gray-dark;
   padding: 3rem;
   box-sizing: border-box;
 }
@@ -29,8 +30,8 @@ body {
   /* 背景色彩线性梯度变化从左到右 从 #7ed56f 到 #28b485 */
   background-image: linear-gradient( 
           to right bottom, 
-        rgba(126, 213, 111, 0.8), /*  最后一个显示透明度 */
-        rgba(40, 180, 133, 0.8)), 
+        rgba($color-primary-light , 0.8), /*  最后一个显示透明度 */
+        rgba($color-primary-dark, 0.8)), 
           url(../img/hero.jpg);
   /* cover 背景图片填充,  contain 就是适合图片尺寸的重复平铺  */
   background-size: cover;
@@ -63,7 +64,7 @@ body {
 }
 
 .heading-primary{
-  color: #fff;
+  color: $color-white;
   text-transform: uppercase;
   backface-visibility: hidden;
   margin-bottom: 6rem;
@@ -183,8 +184,8 @@ It matches every unvisited <a>, <area>, or <link> element that has an href attri
 }
 
 .btn--white {
-  background-color: #fff;
-  color: #777;
+  background-color: $color-white;
+  color: $color-gray-dark;
 }
 
 /* after pseudo 是后期添加的element 当btn被选中后显示 */
@@ -204,7 +205,7 @@ It matches every unvisited <a>, <area>, or <link> element that has an href attri
 }
 
 .btn--white::after {
-  background-color: #fff;
+  background-color: $color-white;
 }
 
 .btn:hover::after {
