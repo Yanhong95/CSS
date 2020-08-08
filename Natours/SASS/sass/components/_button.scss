@@ -1,0 +1,100 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4.0rem;
+    // inline-block 让它独占一行, 不贴着上面, 由于这个是text 上面有 text-align: center; 他会自动居中
+    display: inline-block;
+    border-radius: 10rem;
+    // 基于这个btn的所有动画都被允许, 动画时间为0.2s
+    transition: all .2s;
+    position: relative;
+    font-size: $default-font-size;
+  }
+
+  &:hover {
+    // hover的时候向上移动3px 
+    transform: translateY(-3rem);
+    // hover的时候 x轴没有shadow, y轴10pxshadow 然后20px的模糊, 不是规则的shadow 而是渐变的
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+
+    &::after {
+      // x轴扩大1.4倍, y轴扩大1.6倍, 扩大之后变透明
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active {
+    // 点击的时候向下移动1px
+    transform: translateY(-1px);
+    // 点击的时候 x轴没有shadow, y轴5pxshadow 然后10px的模糊, 不是规则的shadow 而是渐变的 
+    // 这里的阴影比上面的短, 有一种悬空点击下沉的感觉
+    box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-grey-dark;
+
+    &::after {
+        background-color: $color-white;
+    }
+}
+
+  //after pseudo 是后期添加的element 当btn被选中后显示
+  &::after {
+    // content 和 display 是必须的 
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    // 这个after元素, 在btnz轴后面, top left为0, 那么就是完全后面 
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .4s;
+  }
+
+  &--animated {
+    // animation name, duration, timing function;  delay
+    animation: moveInBottum .5s ease-out .75s;
+    // 设置动画开始之前没有
+    animation-fill-mode: backwards;
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+      font-size: $default-font-size;
+      color: $color-primary;
+      // a 元素是inline, 加上block就能添加margin padding了
+      display: inline-block;
+      text-decoration: none;
+      // 底下的一条线
+      border-bottom: 1px solid $color-primary;
+      padding: 3px;
+      transition: all .2s;
+  }
+
+  &:hover {
+      // hover过去背景色变绿, text变白,
+      background-color: $color-primary;
+      color: $color-white;
+      //底下有阴影
+      box-shadow: 0 1rem 2rem rgba($color-black, .15);
+      // 向上移动2px;
+      transform: translateY(-2px);
+  }
+
+  &:active {
+      //点击后阴影变浅, 然后y轴恢复原位, 有种点击的感觉
+      box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+      transform: translateY(0);
+  }
+}

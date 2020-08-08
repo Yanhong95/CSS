@@ -1,0 +1,51 @@
+// 左近右出然后回到基准点的的动画
+@keyframes moveInLeft {
+  0% {
+    // 开始的时候是透明的
+    opacity: 0;
+    // 开始的时候位置在以自己为基准的左边100px
+    transform: translateX(-10rem);
+  }
+
+  80% {
+    // 80的时候位置在以自己为基准的右边10px
+    transform: translateX(1rem);
+  }
+
+  100% {
+    // 结束的时候不透明
+    opacity: 1;
+    // 结束的时候在原地不变
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    // 开始的时候是透明的 
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInBottum {
+  0% {
+
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}

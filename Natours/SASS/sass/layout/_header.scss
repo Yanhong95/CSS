@@ -1,0 +1,39 @@
+
+.header {
+  height: 95vh;
+  //  header 高度占95% */
+  // 背景色彩线性梯度变化从左到右 从 #7ed56f 到 #28b485
+  background-image: linear-gradient(to right bottom,
+      rgba($color-primary-light, 0.8),
+      //  最后一个显示透明度 */
+      rgba($color-primary-dark, 0.8)),
+    url(../img/hero.jpg);
+  // cover 背景图片填充,  contain 就是适合图片尺寸的重复平铺 
+  background-size: cover;
+  // 不管如何缩放, 图片顶部保持不变 
+  background-position: top;
+  position: relative;
+  // 将背景图片切割成不规则多边形, 下面四个就是四边形 下面四个坐标就是图片 左上 右上 右下 左下 四个点的坐标对应比例 
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+
+  &__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+
+  &__logo {
+    height: 3rem;
+  }
+
+  &__text-box {
+    //  绝对位置 
+    position: absolute;
+    // 左右都移到相对父元素的一半, 这样这个block的左上角就是在正中心 
+    top: 40%;
+    left: 50%;
+    // 然后使用translate, 这个是对block自己而言的, 相当于将自己往左边移动自己的一半, 将自己往上面移动自己的一半
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
