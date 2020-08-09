@@ -1,0 +1,113 @@
+.form {
+  &__group:not(:last-child) {
+      margin-bottom: 2rem;
+  }
+
+  &__input {
+      font-size: 1.5rem;
+      /*form 自动为浏览器字体, 继承后变成选定字体*/
+      font-family: inherit;
+      color: inherit;
+      padding: 1.5rem 2rem;
+      border-radius: 2px;
+      background-color: rbga($color-white, .5);
+      border: none;
+      /*下面的outline占了位子,我们要在这里补位*/
+      border-bottom: 3px solid transparent;
+      width: 90%;
+      display: block;
+      transition: all .3s;
+
+      /*当form被focus, 点击或者选中, 我们去掉原本的outine, 添加我们自己的outLine, 底部绿色线条*/
+      &:focus {
+          outline: none;
+          box-shadow: 0 1rem 2rem rgba($color-black, .1);
+          border-bottom: 3px solid $color-primary;
+      }
+      /*如果form内容invalid, 底部要变成红色*/
+      &:focus:invalid {
+          border-bottom: 3px solid $color-secondary-dark;
+      }
+       /* :: 意味着里面的placeholder是确实存在在页面的*/
+      &::-webkit-input-placeholder {
+          color: $color-grey-dark-2;
+      }
+  }
+
+
+  &__label {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-left: 2rem;
+      margin-top: .7rem;
+      display: block;
+      transition: all .3s;
+  }
+
+  /*  + 是 sibling selector 选择相邻的两个, ~ 是同级元素selector, 选择同一级的element  按顺序*/
+  /* 下面这个意思是 placeholder shown的时候, label是不见的但是位置在上面4rem位置, placeholder 不见的时候 从上面4rem落下来*/
+  &__input:placeholder-shown + &__label {
+       /* 透明 */
+      opacity: 0;
+       /* visibility hidden 就不占位置 */
+      visibility: hidden;
+      transform: translateY(-4rem);
+  }
+
+
+  &__radio-group {
+      width: 49%;
+      /* inline-block 可以让两个元素都有block特性, 有高度长度, 但是是在同一行*/
+      display: inline-block;
+  }
+
+  &__radio-input {
+      display: none;
+  }
+  
+  &__radio-label {
+      font-size: $default-font-size;
+      /*选中的时候鼠标变成一个小手*/
+      cursor: pointer;
+      position: relative;
+       /*paddingleft ,防止与选择框太近*/
+      padding-left: 4.5rem;
+  }
+
+  &__radio-button {
+      /*圆环, border 5px*/
+      height: 3rem;
+      width: 3rem;
+      border: 5px solid $color-primary;
+      border-radius: 50%;
+       /*inlineblock 让他们同一行, */
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: -.4rem;
+
+       /*这个是被选中后的内部的圆心*/
+      &::after {
+          /*posudo element 要给他content和display*/
+          content: "";
+          display: block;
+          height: 1.3rem;
+          width: 1.3rem;
+          border-radius: 50%;
+           /*在parent正中央*/
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: $color-primary;
+           /*最开始没选择的时候是看不见的, 最后checked input后 动画它出现*/
+          opacity: 0;
+          transition: opacity .2s;
+      }
+  }
+  /*检查radio-input是不是被选中了 被选中了之后就就让label里面的button的after的效果的opacity变成1, 也就是显示button*/
+  /* ~ 选中 sibling element label 然后后面子元素button*/
+  &__radio-input:checked ~ &__radio-label &__radio-button::after {
+      opacity: 1;
+  }
+}

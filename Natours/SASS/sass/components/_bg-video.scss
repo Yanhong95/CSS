@@ -1,0 +1,20 @@
+.bg-video {
+  /*适应父元素长宽*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /*z轴较后, 模糊,*/
+  z-index: -1;
+  opacity: .15;
+  /* 背景超出父元素, 使用overflow hidden*/
+  overflow: hidden;
+
+  &__content {
+      height: 100%;
+      width: 100%;
+      /*用于video的适应父元素并拉长 background-size cover一样*/
+      object-fit: cover;
+  }
+}

@@ -1,5 +1,6 @@
 .btn {
   &,
+  /*<a> 才有 link 和 visited*/
   &:link,
   &:visited {
     text-transform: uppercase;
@@ -12,11 +13,16 @@
     transition: all .2s;
     position: relative;
     font-size: $default-font-size;
+
+
+        //Change for the <button> element
+        border: none;
+        cursor: pointer;
   }
 
   &:hover {
     // hover的时候向上移动3px 
-    transform: translateY(-3rem);
+    transform: translateY(-1rem);
     // hover的时候 x轴没有shadow, y轴10pxshadow 然后20px的模糊, 不是规则的shadow 而是渐变的
     box-shadow: 0 1rem 2rem rgba($color-black, .2);
 
@@ -27,7 +33,8 @@
     }
   }
 
-  &:active {
+  &:active ,
+  &:focus{
     // 点击的时候向下移动1px
     transform: translateY(-1px);
     // 点击的时候 x轴没有shadow, y轴5pxshadow 然后10px的模糊, 不是规则的shadow 而是渐变的 
@@ -42,7 +49,17 @@
     &::after {
         background-color: $color-white;
     }
-}
+  }
+
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+    
+    &::after {
+        background-color: $color-white;
+    }
+  }
+  
 
   //after pseudo 是后期添加的element 当btn被选中后显示
   &::after {

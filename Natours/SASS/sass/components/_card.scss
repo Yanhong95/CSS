@@ -1,0 +1,166 @@
+.card {
+  // perspective 像实体的卡片旋转效果
+  perspective: 150rem;
+  -moz-perspective: 150rem;
+  position: relative;
+  // 设置子元素 position absolute之后子元素会float, 父元素就失去了高度, 要设置回高度
+  height: 52rem;
+
+  &__side {
+    height: 52rem;
+    transition: all 0.8s;
+    // absolute的话要规定位置 设置absolute之后子元素会float, 父元素就失去了高度, 要设置回高度
+    position: absolute;
+    top: 0;
+    left: 0;
+    // 占满空间而不是只根据内容长短来占满
+    width: 100%;
+    // 下面就是用于重叠的component, 被重叠了就隐藏
+    backface-visibility: hidden;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    overflow: hidden;
+
+    &--front {
+      background-color: $color-white;
+    }
+
+    &--back {
+      transform: rotateY(180deg);
+
+      &-1 {
+        background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark)
+      }
+
+      &-2 {
+        background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark)
+      }
+
+      &-3 {
+        background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark)
+      }
+    }
+  }
+
+  // 卡片翻转的效果是怎么来的呢? 其实他是上下两张卡, 运用absolute position来将它们重合一起, 
+  // 最开始的时候front是不动的, 但是 back是y轴反转了180度, 这样这个时候y轴字就是反的, 
+  // 然后在hover过去后, front反转180度, back翻转回来这样我们看到的字就是正的了
+
+  &:hover &__side--front {
+    transform: rotateY(-180deg);
+  }
+
+  &:hover &__side--back {
+    transform: rotateY(0);
+  }
+
+
+  // frontsite style
+  &__picture {
+    overflow: hidden;
+    background-size: cover;
+    height: 23rem;
+    // 图片上的颜色模板
+    background-blend-mode: screen;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+    &--1 {
+      background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark),
+        url(../img/nat-5.jpg);
+    }
+
+    &--2 {
+      background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark),
+      url(../img/nat-6.jpg);
+    }
+
+    &--3 {
+      background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark),
+      url(../img/nat-7.jpg);
+    }
+  }
+
+  &__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: $color-white;
+    position: absolute;
+    top: 12rem;
+    right: 2rem;
+    width: 75%;
+  }
+
+  &__heading-span {
+    padding: 1rem 1.5rem;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+
+    &--1 {
+      background-image: linear-gradient(to right bottom, 
+        rgba($color-secondary-light, .85), 
+        rgba($color-secondary-dark, .85));
+    }
+
+    &--2 {
+      background-image: linear-gradient(to right bottom, 
+        rgba($color-primary-light, .85), 
+        rgba($color-primary-dark, .85));
+    }
+
+    &--3 {
+      background-image: linear-gradient(to right bottom, 
+        rgba($color-tertiary-light, .85), 
+        rgba($color-tertiary-dark, .85));
+    }
+  }
+
+  &__details{
+    padding: 3rem;
+
+    ul{
+      list-style: none;
+      width: 80%;
+      // 下面这个可以将一个block居中在另一个block中间
+      margin: 0 auto;
+
+      li{
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem;
+
+        &:not(:last-child){
+          border-bottom: 1px solid $color-grey-light-2;
+        }
+      }
+    }  
+  }
+
+  // back side style
+  &__cta{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+  }
+
+  &__price-box{
+    text-align: center;
+    color: $color-white;
+    margin-bottom: 8rem;;
+  }
+
+  &__price-only{
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__price-value{
+    font-size: 6rem;
+    font-weight: 100;
+  }
+}
