@@ -1,0 +1,118 @@
+.popup {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba($color-black, .8);
+  /*这个popup在所有的前面. 之前是hidden的*/
+  z-index: 9999;
+  /*占有率为0, 看不见, 但是并不是display none, display none 看不见效果*/
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+
+  &__content {
+      /*中间的内容是fix在中间的*/
+      @include absCenter;
+      /*position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);*/
+
+      width: 75%;
+      background-color: $color-white;
+      box-shadow: 0 2rem 4rem rgba($color-black, .2);
+      border-radius: 3px;
+      /*这里设置成tabel, 里面两个元素left和right设置成 display tabel-cell 那他们就是等高的了*/
+      display: table;
+       /*下面的图片会overflow 这里要给他藏起来*/
+      overflow: hidden;
+      opacity: 0;
+      /*本来content是0.25倍大, 点击后变成1倍大, 这样就是扩大效果*/
+      /*要是分开写, 第二个会覆盖掉第一个, 所以要一起写*/
+      transform: translate(-50%, -50%) scale(.25);
+      transition: all .5s .2s;
+  }
+
+  &__left {
+      /*父元素设置成tabel, 里面两个元素left和right设置成 display tabel-cell 那他们就是等高的了*/
+      width: 33.333333%;
+      display: table-cell;
+  }
+
+  &__right {
+      /*父元素设置成tabel, 里面两个元素left和right设置成 display tabel-cell 那他们就是等高的了*/
+      width: 66.6666667%;
+      display: table-cell;
+      /*内部元素居中*/
+      vertical-align: middle;
+      padding: 3rem 5rem;
+  }
+
+  &__img {
+      /*图片block占一行, 剩下的占另一行*/
+      display: block;
+      width: 100%;
+  }
+
+  &__text {
+      font-size: 1.4rem;
+      margin-bottom: 4rem;
+
+      /*适配多浏览器*/
+      -moz-column-count: 2;
+      -moz-column-gap: 4rem; 
+      -moz-column-rule: 1px solid $color-grey-light-2;
+
+      /*将文字分成两个column*/
+      column-count: 2;
+      /*1em = 14px; 是当前的字体大小 */
+      /*中间gap 4rem. 一条竖线分割*/
+      column-gap: 4rem;
+      column-rule: 1px solid $color-grey-light-2;
+
+      /*hyphenation, 自动显示连字符当分行break了单词*/
+      -moz-hyphens: auto;
+      -ms-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+
+      /*适配多浏览器
+       moz是Firefox, ms是微软浏览器edge, webkit是 chrome 和 safari, o是Opera,
+      */
+      
+  }
+
+  //Open states/ 点击button button <a> 上href指向的是这个id: popup 就会激活这个target 然后显示这个popup.
+  &:target {
+      opacity: 1;
+      visibility: visible;
+  }
+
+  &:target &__content {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* 点击后 隐藏popup*/
+  &__close {
+      &:link,
+      &:visited {
+          color: $color-grey-dark;
+          position: absolute;
+          top: 2.5rem;
+          right: 2.5rem;
+          font-size: 3rem;
+          text-decoration: none;
+          display: inline-block;
+          transition: all .2s;
+          /*这个图标是text,  大小是不规则的, 我们设置line-height就让它固定高度, 他才能在我们要的位置*/
+          line-height: 1;
+      }
+
+      &:hover {
+          color: $color-primary;
+      }
+  }
+}
