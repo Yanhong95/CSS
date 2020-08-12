@@ -33,12 +33,17 @@
       /*要是分开写, 第二个会覆盖掉第一个, 所以要一起写*/
       transform: translate(-50%, -50%) scale(.25);
       transition: all .5s .2s;
+
   }
 
   &__left {
       /*父元素设置成tabel, 里面两个元素left和right设置成 display tabel-cell 那他们就是等高的了*/
       width: 33.333333%;
       display: table-cell;
+      @include respond(tab-port) {
+        width: 100%;
+        display: table-row;
+      }
   }
 
   &__right {
@@ -48,12 +53,22 @@
       /*内部元素居中*/
       vertical-align: middle;
       padding: 3rem 5rem;
+      @include respond(tab-port) {
+        width: 100%;
+        display: block;
+      }
   }
 
   &__img {
       /*图片block占一行, 剩下的占另一行*/
       display: block;
       width: 100%;
+      @include respond(tab-port) {
+        background-size: contain;
+        width: 50%;
+        display: inline-block;
+        
+    }
   }
 
   &__text {

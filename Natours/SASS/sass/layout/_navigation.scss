@@ -1,163 +1,196 @@
 .navigation {
-  &__checkbox {
-      display: none;
-  }
-  /*右上角的白色圆形label*/
-  &__button {
-      background-color: $color-white;
-      height: 7rem;
-      width: 7rem;
-      position: fixed;
-      top: 6rem;
-      right: 6rem;
-      border-radius: 50%;
-      /*比下面的background高*/
-      z-index: 2000;
-      box-shadow: 0 1rem 3rem rgba($color-black, .1);
-      text-align: center;
-      cursor: pointer;
-  }
-  /*绿色渐变背景. 开始是被button盖住的*/
-  &__background {
-      height: 6rem;
-      width: 6rem;
-      border-radius: 50%;
-      position: fixed;
-      top: 6.5rem;
-      right: 6.5rem;
-      background-image: radial-gradient($color-primary-light, $color-primary-dark);
-       /*比一般背景高*/
-      z-index: 1000;
-      /*easings.net, cubic-bezier.com cubic-bezier是一种变化的速度, 位置也能变化*/
-      /*这个是背景的渐变速度*/
-      transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
+    &__checkbox {
+        display: none;
+    }
 
-      //transform: scale(80);
-  }
-  /*在背景上面, button下面*/
-  &__nav {
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-       /*在背景和button中间*/
-      z-index: 1500;
+    /*右上角的白色圆形label*/
+    &__button {
+        background-color: $color-white;
+        height: 7rem;
+        width: 7rem;
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        border-radius: 50%;
+        /*比下面的background高*/
+        z-index: 2000;
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+        text-align: center;
+        cursor: pointer;
+        
+        @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+        }
+    
+        @include respond(phone) {
+            top: 3rem;
+            right: 3rem;
+        }
+    }
 
-      opacity: 0;
-      width: 0;
-      /*这个是四个nav的渐变速度*/
-      transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
 
-  &__list {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      list-style: none;
-      text-align: center;
-      width: 100%;
-  }
+    /*绿色渐变背景. 开始是被button盖住的*/
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        /*比一般背景高*/
+        z-index: 1000;
+        /*easings.net, cubic-bezier.com cubic-bezier是一种变化的速度, 位置也能变化*/
+        /*这个是背景的渐变速度*/
+        transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
 
-  &__item {
-      margin: 1rem;
-  }
+        //transform: scale(80);
+        @include respond(tab-port) {
+            top: 4.5rem;
+            right: 4.5rem;
+        }
 
-  &__link {
-      &:link,
-      &:visited {
-          display: inline-block;
-          font-size: 3rem;
-          font-weight: 300;
-          padding: 1rem 2rem;
-          color: $color-white;
-          text-decoration: none;
-          text-transform: uppercase;
-          /*开始透明, 中间透明, 中间后面白色, 然后背景220%就相当于扩大了这个矩形, 
+        @include respond(phone) {
+            top: 3.5rem;
+            right: 3.5rem;
+        }
+    }
+
+    /*在背景上面, button下面*/
+    &__nav {
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        /*在背景和button中间*/
+        z-index: 1500;
+
+        opacity: 0;
+        width: 0;
+        /*这个是四个nav的渐变速度*/
+        transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    &__list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        list-style: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 300;
+            padding: 1rem 2rem;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+            /*开始透明, 中间透明, 中间后面白色, 然后背景220%就相当于扩大了这个矩形, 
           就隐藏了后面的白色, 这个时候就是透明的背景色, 当hover和 active的时候 向左移动就出现了白色.*/
-          background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
-          background-size: 220%;
-          transition: all .4s;
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            background-size: 220%;
+            transition: all .4s;
 
-          span {
-              margin-right: 1.5rem;
-              display: inline-block;
-          }
-      }
-      
-      &:hover,
-      &:active {
-         /*backgroundposition 用来指定背景图起点, 第一个0是最左边, 100是最右边, 第二个0是最上面 100是最下面, 只指定一个的话, 另一个自动为50%*/
-          background-position: 100%;
-          color: $color-primary;
-          transform: translateX(1rem);
-      }
-  }
+            span {
+                margin-right: 1.5rem;
+                display: inline-block;
+            }
+        }
 
-
-  //FUNCTIONALITY
-  /*checkbox选中后, 背景扩大80倍, 就有圆的扩张效果*/
-  &__checkbox:checked ~ &__background {
-      transform: scale(80);
-  }
-
-  /*checkbox选中后, nav显示出来*/
-  &__checkbox:checked ~ &__nav {
-      opacity: 1;
-      width: 100%;
-  }
+        &:hover,
+        &:active {
+            /*backgroundposition 用来指定背景图起点, 第一个0是最左边, 100是最右边, 第二个0是最上面 100是最下面, 只指定一个的话, 另一个自动为50%*/
+            background-position: 100%;
+            color: $color-primary;
+            transform: translateX(1rem);
+        }
+    }
 
 
-  //ICON
-  &__icon {
-      position: relative;
-      margin-top: 3.5rem;
+    //FUNCTIONALITY
+    /*checkbox选中后, 背景扩大80倍, 就有圆的扩张效果*/
+    &__checkbox:checked~&__background {
+        transform: scale(80);
+    }
 
-      /*三条横线,其实是自己和before和after, 用inlineblock*/
-      &,
-      &::before,
-      &::after {
-          width: 3rem;
-          height: 2px;
-          background-color: $color-grey-dark-3;
-          /*span本来是inline 但是没有高, 用了inlineblock就有高了*/
-          display: inline-block;
-      }
+    /*checkbox选中后, nav显示出来*/
+    &__checkbox:checked~&__nav {
+        opacity: 1;
+        width: 100%;
+    }
 
-      /*pseudo class 需要content 和position,*/
-      &::before,
-      &::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          transition: all .2s;
-      }
-      /*pseudo class 规定他们的位置,*/
-      &::before { top: -.8rem; }
-      &::after { top: .8rem; }
-  }
 
-  /*hover过后, before上移一点*/
-  &__button:hover &__icon::before {
-      top: -1rem;
-  }
+    //ICON
+    &__icon {
+        position: relative;
+        margin-top: 3.5rem;
 
-  /*hover过后, after下移一点*/
-  &__button:hover &__icon::after {
-      top: 1rem;
-  }
-  /*点击过后, 中间的icon透明*/
-  &__checkbox:checked + &__button &__icon {
-      background-color: transparent;
-  }
-  /*点击过后, 上面的旋转135度 向下移动*/
-  &__checkbox:checked + &__button &__icon::before {
-      top: 0;
-      transform: rotate(135deg);
-  }
-  /*点击过后, 下面的向上旋转135度 向上移动*/
-  &__checkbox:checked + &__button &__icon::after {
-      top: 0;
-      transform: rotate(-135deg);
-  }
+        /*三条横线,其实是自己和before和after, 用inlineblock*/
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            /*span本来是inline 但是没有高, 用了inlineblock就有高了*/
+            display: inline-block;
+        }
+
+        /*pseudo class 需要content 和position,*/
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+
+        /*pseudo class 规定他们的位置,*/
+        &::before {
+            top: -.8rem;
+        }
+
+        &::after {
+            top: .8rem;
+        }
+    }
+
+    /*hover过后, before上移一点*/
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+
+    /*hover过后, after下移一点*/
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+    /*点击过后, 中间的icon透明*/
+    &__checkbox:checked+&__button &__icon {
+        background-color: transparent;
+    }
+
+    /*点击过后, 上面的旋转135度 向下移动*/
+    &__checkbox:checked+&__button &__icon::before {
+        top: 0;
+        transform: rotate(135deg);
+    }
+
+    /*点击过后, 下面的向上旋转135度 向上移动*/
+    &__checkbox:checked+&__button &__icon::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
 }

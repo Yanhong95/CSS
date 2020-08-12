@@ -1,7 +1,12 @@
 .row {
   max-width: $grid-width;
   margin: 0 auto;
+
   // background-color: #00b8a9;
+  @include respond(tab-port) {
+    max-width: 50rem;
+    padding: 0 3rem;
+  }
 
   @include clearfix;
   // 下面float left之后, 会导致high变成0, 我们要用clearfix来还原本来的高度
@@ -16,15 +21,28 @@
   // 所有的除了最后一个child 都给他margin-bottom
   &:not(:last-child) {
     margin-bottom: $gutter-vertical;
+
+    @include respond(tab-port) {
+      margin-bottom: $gutter-vertical-small;
+    }
   }
 
   [class^="col-"] {
-    
+
     float: left;
     // background-color: #f6416c;
 
     &:not(:last-child) {
-        margin-right: $gutter-horizontal;
+      margin-right: $gutter-horizontal;
+
+      @include respond(tab-port) {
+        margin-right: 0;
+        margin-bottom: $gutter-vertical-small;
+      }
+    }
+
+    @include respond(tab-port) {
+      width: 100% !important;
     }
   }
 

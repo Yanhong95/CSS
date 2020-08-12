@@ -18,6 +18,10 @@
       display: block;
       transition: all .3s;
 
+      @include respond(tab-port) {
+        width: 100%;
+    }
+
       /*当form被focus, 点击或者选中, 我们去掉原本的outine, 添加我们自己的outLine, 底部绿色线条*/
       &:focus {
           outline: none;
@@ -59,6 +63,11 @@
       width: 49%;
       /* inline-block 可以让两个元素都有block特性, 有高度长度, 但是是在同一行*/
       display: inline-block;
+
+      @include respond(tab-port) {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
   }
 
   &__radio-input {
