@@ -1,0 +1,129 @@
+  ////////////////////////////////////////
+  // LOGO
+  .logo {
+      height: 3.25rem;
+      margin-left: 2rem;
+  }
+
+
+  ////////////////////////////////////////
+  // SEARCH
+  .search {
+      flex: 0 0 40%;
+      /*使所有子元素横向排列*/
+      display: flex;
+      /*使所有子元素垂直居中*/
+      align-items: center;
+      /*使所有子元素横向居中*/
+      justify-content: center;
+
+      &__input {
+          font-family: inherit;
+          font-size: inherit;
+          color: inherit;
+          background-color: var(--color-grey-light-2);
+          border: none;
+          padding: .7rem 2rem;
+          border-radius: 100px;
+          width: 90%;
+          transition: all .2s;
+          margin-right: -3.25rem;
+
+          &:focus {
+              /*focus会自动带一个边缘框, 我们不要它*/
+              outline: none;
+              width: 100%;
+              background-color: var(--color-grey-light-3);
+          }
+
+          /*给placeholer 变色*/
+          &::-webkit-input-placeholder {
+              font-weight: 100;
+              color: var(--color-grey-light-4);
+          }
+      }
+
+      &__input:focus+&__button {
+          background-color: var(--color-grey-light-3);
+      }
+
+      &__button {
+          border: none;
+          background-color: var(--color-grey-light-2);
+
+          &:focus {
+              outline: none;
+          }
+
+          /*点击后下沉*/
+          &:active {
+              transform: translateY(2px);
+          }
+      }
+
+      &__icon {
+          height: 2rem;
+          width: 2rem;
+          fill: var(--color-grey-dark-3);
+      }
+  }
+
+  ////////////////////////////////////////
+  // USER NAVIGATION
+  .user-nav {
+      /*使所有子元素横向排列*/
+      display: flex;
+      /*使所有子元素垂直居中*/
+      align-items: center;
+      /*使所有子元素占满父元素空间*/
+      align-self: stretch;
+     
+      &>* {
+          /*子元素都垂直居中 填充*/
+          padding: 0 2rem;
+          cursor: pointer;
+          /*子元素占高百分之百*/
+          height: 100%;
+          /*子元素的子元素垂直居中*/
+          display: flex;
+          align-items: center;
+      }
+
+      &>*:hover {
+          background-color: var(--color-grey-light-2);
+      }
+
+      &__icon-box {
+        position: relative;
+      }
+
+      &__icon {
+          height: 2.25rem;
+          width: 2.25rem;
+          fill: var(--color-grey-dark-2);
+      }
+
+      &__notification {
+        font-size: .8rem;
+        height: 1.75rem;
+        width: 1.75rem;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        color: #fff;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.1rem;
+        /*提醒的那个红点里面还有个数, 这是让它居中的*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      }
+
+      &__user-photo {
+        height: 3.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+
+  }

@@ -1,0 +1,35 @@
+.container{
+    max-width: 120rem;
+    margin: 8rem auto;
+    background-color: var(--color-grey-light-2);
+    box-shadow: var(--shadow-dark);
+    min-height: 50rem;
+}
+
+.header{
+    font-size: 1.4rem;
+    height: 7rem;
+    background-color: #fff;
+    border-bottom: var(--line);
+    /*子元素横排, 然后左右贴边, 中间居中*/
+    display: flex;
+    justify-content: space-between;
+    /*子元素垂直居中*/
+    align-items: center;
+}
+
+.content{
+    display: flex;
+}
+
+.sidebar{
+    background-color: var(--color-grey-dark-1);
+    /*flex 是三个元素一起定义  <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> 这里是不伸长压缩, 就占宽度18%*/
+    flex: 0 0 18%;
+    
+}
+
+.hotel-view{
+    background-color: #fff;
+    flex: 1; /*占满剩下的可以用的距离 也就是宽度的82%*/
+}
