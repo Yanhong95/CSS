@@ -23,18 +23,22 @@
   &__shape {
     width: 15rem;
     height: 15rem;
-    background-color: orange;
     float: left;
-    /*shape outside 是用来使周围贴近的元素按照这个元素(圆)周围分布*/
-    -webkit-shape-outside: circle(50% at 50% 50%);
-    shape-outside: circle(50% at 50% 50%);
-    /*下面这个是裁切一个圆形 元素一定要overflow*/
-    /*第一个 50% 是基于上面长宽的radius, 然后后面两个是基于上面高度的中点坐标*/
-    -webkit-clip-path: circle(50% at 50% 50%);
-    clip-path: circle(50% at 50% 50%);
-    transform: translateX(-3rem) skew(12deg);
+    transform: translateX(-3rem) skewX(12deg);
     position: relative;
+    overflow: hidden;
+    border-radius: 50%;
 
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+      /*shape outside 是用来使周围贴近的元素按照这个元素(圆)周围分布*/
+      -webkit-clip-path: circle(50% at 50% 50%);
+      clip-path: circle(50% at 50% 50%);
+      /*下面这个是裁切一个圆形 元素一定要overflow*/
+      /*第一个 50% 是基于上面长宽的radius, 然后后面两个是基于上面高度的中点坐标*/
+      -webkit-shape-outside: circle(50% at 50% 50%);
+      shape-outside: circle(50% at 50% 50%);
+      border-radius: none;
+  }
     @include respond(phone) {
       transform: translateX(-3rem) skewX(0);
     }
