@@ -4,6 +4,12 @@
     background-color: var(--color-grey-light-2);
     box-shadow: var(--shadow-dark);
     min-height: 50rem;
+
+    @media only screen and (max-width: $bp-largest) {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+    }
 }
 
 .header{
@@ -16,20 +22,77 @@
     justify-content: space-between;
     /*子元素垂直居中*/
     align-items: center;
+    @media only screen and (max-width: $bp-smallest) {
+        flex-wrap: wrap;
+        align-content: space-around;
+        height: 11rem;
+    }
 }
 
 .content{
     display: flex;
+    @media only screen and (max-width: $bp-medium) {
+        flex-direction: column;
+    }
 }
 
 .sidebar{
     background-color: var(--color-grey-dark-1);
     /*flex 是三个元素一起定义  <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> 这里是不伸长压缩, 就占宽度18%*/
     flex: 0 0 18%;
-    
+    /*内部子元素靠上和靠下垂直排列*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;;
 }
 
 .hotel-view{
     background-color: #fff;
     flex: 1; /*占满剩下的可以用的距离 也就是宽度的82%*/
 }
+
+.detail {
+    font-size: 1.4rem;
+    display: flex;
+    padding: 4.5rem;
+    background-color: var(--color-grey-light-1);
+    border-bottom: var(--line);
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 3rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        flex-direction: column;
+    }
+}
+
+.description {
+    background-color: #fff;
+    box-shadow: var(--shadow-light);
+    padding: 3rem;
+    /*这个占60%*/
+    flex: 0 0 60%;
+    margin-right: 4.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2rem;
+        margin-right: 3rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        margin-right: 0;
+        margin-bottom: 3rem;
+    }
+}
+
+.user-reviews{
+    background-color:  var(--color-grey-light-1);
+    /*这个占剩下的40%*/
+    flex: 1;
+    display: flex;
+    /*内部元素垂直分布, 且都是居中而不是stretch*/
+    flex-direction: column;
+    align-items: center;
+}
+
