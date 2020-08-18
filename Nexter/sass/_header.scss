@@ -1,0 +1,75 @@
+.header{
+  background-color: $color-grey-dark-1;
+  grid-column: full-start / col-end 6;
+
+  background-image: linear-gradient(rgba($color-secondary, .93), rgba($color-secondary, .93)), url(../img/hero.jpeg);
+  background-size: cover;
+  background-position: center;
+  padding: 8rem;
+  padding-top: 4rem;
+
+  display: grid;
+  /*这里在这个grid里指定第一个row的1rf充满, 然而没有指定别的row, 这样别的row就自然的被内容扩充大小并连续排列在下面,
+  ,然后指定下一row min-content  最后一行充满*/
+  /*这里的minmax(6rem, min-content), 所以最少高度能有6rem 随着屏幕宽短缩小, 高度等于content的最小高度*/
+  grid-template-rows: 1fr min-content  minmax(6rem, min-content) 1fr;
+  /*最小col为小的content, 最大col为最宽的content*/
+  grid-template-columns: minmax(min-content, max-content);
+  row-gap: 1.5rem;
+
+
+  @media only screen and (max-width: $bp-medium) {
+      /*屏幕变小占一行*/
+      grid-column: 1 / -1;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+      /*屏幕再变小减少padding*/
+      padding: 5rem;
+  }
+
+  &__logo {
+      height: 3rem;
+      /*logo水平居中*/
+      justify-self: center;
+  }
+
+  &__btn {
+    /*btn在这一行垂直居上, 水平居左*/
+    justify-self: start;
+    align-self: start;
+  }
+
+  &__seenon-text {
+      /*seen on 和前后的两条线, 占三个col, 中间text是max-content 垂直居中*/
+      display: grid;
+      grid-template-columns: 1fr max-content 1fr;
+      column-gap: 1.5rem;
+      align-items: center;
+      font-size: 1.6rem;
+      color: $color-grey-light-2;
+       /*text 前后的两条线*/
+      &::before,
+      &::after {
+        content: " ";
+        height: 1px;
+        display: block;
+        background-color: currentColor;
+      }
+  }
+
+  &__seenon-logos {
+      /*图片col每个占四分之一水平垂直居中*/
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 3rem;
+      justify-items: center;
+      align-items: center;
+      img {
+        /*高度和宽度都设置的是max, 根据屏幕缩小也能随即缩小*/
+        max-height: 2.5rem;
+        max-width: 100%;
+        filter: brightness(70%);
+      }
+  }
+}

@@ -1,0 +1,79 @@
+.story{
+  &__pictures{
+    background-color: $color-primary;
+    grid-column: full-start / col-end 4;
+    background-image: linear-gradient(rgba($color-primary, .5), rgba($color-primary, .5)), url(../img/back.jpg);
+    background-size: cover;
+
+    /*做一个6*6的grid. 内部item都居中显示*/
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+    @media only screen and (max-width: $bp-medium) {
+      /*col占满, 然后添加padding*/
+      grid-column: 1 / -1;
+      padding: 6rem;
+    }
+  }
+
+  &__img--1{
+    /*这个照片是矩形, 比较长, 所以不是正好居中, 本来图片是贴着上面, 下面留白的, 
+    上面使用了align-items: center 所以它居中了, 所以上下留白了*/
+    width:100%;
+    grid-row: 2 / 6;
+    grid-column: 2 / 6;
+    box-shadow: 0 2rem 5rem rgba(#000, .1);
+
+    @media only screen and (max-width: $bp-medium) {
+      /*col从1到5, 然后占整个row*/
+      grid-column: 1 / 5;
+      grid-row: 1 / -1;
+    }
+  }
+
+  &__img--2{
+    /*这个照片从col4起 col7结束, width 115%所以较宽一点, 
+      从row4起, row6结束, 其实会超过这两行, 由于上面是align-items center, 所以就可以居中*/
+    width: 115%;
+    grid-row: 4 / 6;
+    grid-column: 4 / 7;
+    z-index: 20;
+    box-shadow: 0 2rem 5rem rgba(#000, .2);
+
+    @media only screen and (max-width: $bp-medium) {
+      /*宽度缩回100, 然后占整个row*/
+      grid-row: 1 / -1;
+      width: 100%;
+    }
+  }
+
+  &__content{
+    background-color: $color-grey-light-1;
+    grid-column: col-start 5 / full-end;
+    padding: 6rem 8vw;
+
+    @media only screen and (max-width: $bp-medium) {
+      /*屏幕变小占一行*/
+      grid-column: 1 / -1;
+      /*占到image上面*/
+      grid-row: 5 / 6;
+    }
+           
+    /* display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;  */
+    
+      display: grid;
+      /*垂直居中水平居左*/
+      align-items: center;
+      justify-items: start ; 
+  }
+
+  &__text {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 4rem;
+  }
+}

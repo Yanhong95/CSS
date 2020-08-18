@@ -1,0 +1,514 @@
+@charset "UTF-8";
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; }
+  @media only screen and (max-width: 75em) {
+    html {
+      font-size: 50%; } }
+
+body {
+  font-family: "Nunito", sans-serif;
+  color: #6D5D4B;
+  font-weight: 300;
+  line-height: 1.6; }
+
+.container {
+  display: grid;
+  /*第一个row是header, 占80%的viewhight, 
+    第二个row是feature, 自适应自身的内容高度, min-content
+    第三个row是story, 有两个component, 两个等宽登高,所以只需要保证每个占40viewWidth
+    第四个第五个第六个是homes, gallery和 footer都只需要自适应内容高度即可 min-content
+    */
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+  /*
+    第一个col是sidebar一直保持8rem
+    第三个col是main-content是个8等分区域, 主要内容在这里均匀陈列, 最小宽度要保持他的content宽, 最大宽度是vw的八分之一 14rem
+    第二个1fr和最后一个1fr是主要conten的周围留白区域, 必要时可以借用与中间的主要内容区域
+  */
+  grid-template-columns: [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end]; }
+  @media only screen and (max-width: 62.5em) {
+    .container {
+      /*屏幕宽度小于900px, 将sidebar一上去变成一个row, 那就去掉第一个column, 然后再row加上一个6rem 在开头*/
+      grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+      grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end]; } }
+  @media only screen and (max-width: 50em) {
+    .container {
+      grid-template-rows: 6rem calc(100vh - 6rem); } }
+
+/*定义基本, 然后别的继承它, 别人都有这个属性了*/
+.heading-1, .heading-2, .heading-3, .heading-4 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400; }
+
+.heading-1 {
+  font-size: 4.5rem;
+  color: #f9f7f6;
+  line-height: 1; }
+
+.heading-2 {
+  font-size: 4rem;
+  font-style: italic;
+  line-height: 1; }
+  .heading-2--light {
+    color: #f9f7f6; }
+  .heading-2--dark {
+    color: #54483A; }
+
+.heading-3 {
+  font-size: 1.6rem;
+  color: #c69963;
+  text-transform: uppercase; }
+
+.heading-4 {
+  font-size: 1.9rem; }
+  .heading-4--light {
+    color: #f9f7f6; }
+  .heading-4--dark {
+    color: #54483A; }
+
+.btn {
+  background-color: #c69963;
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.8rem 3rem;
+  cursor: pointer;
+  transition: all .2s; }
+  .btn:hover {
+    background-color: #B28451; }
+
+.mb-sm {
+  margin-bottom: 2rem; }
+
+.mb-md {
+  margin-bottom: 3rem; }
+
+.mb-lg {
+  margin-bottom: 4rem; }
+
+.mb-hg {
+  margin-bottom: 8rem; }
+
+.sidebar {
+  background-color: #c69963;
+  grid-column: sidebar-start / sidebar-end;
+  /*row 从顶部到底部占满*/
+  grid-row: 1 / -1;
+  display: flex;
+  /*内部item水平居中*/
+  justify-content: center; }
+  @media only screen and (max-width: 62.5em) {
+    .sidebar {
+      /*屏幕变小, 占据一行, 内item水平居右, 垂直居中*/
+      grid-column: 1 / -1;
+      grid-row: 1 / 2;
+      justify-content: flex-end;
+      align-items: center; } }
+
+.nav-btn {
+  border: none;
+  border-radius: 0;
+  /*btn是自己画出来的, 高2px的白线, 然后上下两个pseudo class*/
+  background-color: #fff;
+  height: 2px;
+  width: 4.5rem;
+  margin-top: 4rem;
+  /*高度调整*/ }
+  .nav-btn::before, .nav-btn::after {
+    background-color: #fff;
+    height: 2px;
+    width: 4.5rem;
+    content: "";
+    display: block; }
+  .nav-btn::before {
+    transform: translateY(-1.5rem); }
+  .nav-btn::after {
+    transform: translateY(1.3rem); }
+  @media only screen and (max-width: 62.5em) {
+    .nav-btn {
+      /*小屏幕高度调整*/
+      margin-top: 0;
+      margin-right: 3rem; }
+      .nav-btn::before {
+        transform: translateY(-1.2rem); }
+      .nav-btn::after {
+        transform: translateY(1rem); } }
+
+.header {
+  background-color: #54483A;
+  grid-column: full-start / col-end 6;
+  background-image: linear-gradient(rgba(16, 29, 44, 0.93), rgba(16, 29, 44, 0.93)), url(../img/hero.jpeg);
+  background-size: cover;
+  background-position: center;
+  padding: 8rem;
+  padding-top: 4rem;
+  display: grid;
+  /*这里在这个grid里指定第一个row的1rf充满, 然而没有指定别的row, 这样别的row就自然的被内容扩充大小并连续排列在下面,
+  ,然后指定下一row min-content  最后一行充满*/
+  /*这里的minmax(6rem, min-content), 所以最少高度能有6rem 随着屏幕宽短缩小, 高度等于content的最小高度*/
+  grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr;
+  /*最小col为小的content, 最大col为最宽的content*/
+  grid-template-columns: minmax(min-content, max-content);
+  row-gap: 1.5rem; }
+  @media only screen and (max-width: 50em) {
+    .header {
+      /*屏幕变小占一行*/
+      grid-column: 1 / -1; } }
+  @media only screen and (max-width: 37.5em) {
+    .header {
+      /*屏幕再变小减少padding*/
+      padding: 5rem; } }
+  .header__logo {
+    height: 3rem;
+    /*logo水平居中*/
+    justify-self: center; }
+  .header__btn {
+    /*btn在这一行垂直居上, 水平居左*/
+    justify-self: start;
+    align-self: start; }
+  .header__seenon-text {
+    /*seen on 和前后的两条线, 占三个col, 中间text是max-content 垂直居中*/
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    column-gap: 1.5rem;
+    align-items: center;
+    font-size: 1.6rem;
+    color: #aaa;
+    /*text 前后的两条线*/ }
+    .header__seenon-text::before, .header__seenon-text::after {
+      content: " ";
+      height: 1px;
+      display: block;
+      background-color: currentColor; }
+  .header__seenon-logos {
+    /*图片col每个占四分之一水平垂直居中*/
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3rem;
+    justify-items: center;
+    align-items: center; }
+    .header__seenon-logos img {
+      /*高度和宽度都设置的是max, 根据屏幕缩小也能随即缩小*/
+      max-height: 2.5rem;
+      max-width: 100%;
+      filter: brightness(70%); }
+
+.realtors {
+  background-color: #101d2c;
+  grid-column: col-start 7 / full-end;
+  padding: 3rem;
+  display: grid;
+  /*将自己内部子元素整个box居中*/
+  justify-content: center;
+  align-content: center;
+  /*子元素在所在box内的内容居中*/
+  justify-items: center;
+  row-gap: 2rem; }
+  @media only screen and (max-width: 50em) {
+    .realtors {
+      /*屏幕尺寸变小后占一行*/
+      grid-column: 1 / -1; } }
+  .realtors__list {
+    display: grid;
+    /*list grid 分两col 左边mincontent适合图片本身尺寸, 然后后面的text上下行占一col*/
+    grid-template-columns: min-content max-content;
+    column-gap: 2rem;
+    /*row-gap 要用viewport hight,这样变换屏幕尺寸的时候也能岁比例变化*/
+    row-gap: 5vh;
+    /*下面的子item垂直居中*/
+    align-items: center; }
+    @media only screen and (max-width: 50em) {
+      .realtors__list {
+        /*屏幕变小后占一行, 然后就三个两col, 图片 info 图片 info 图片 info这样*/
+        grid-template-columns: repeat(3, min-content max-content); } }
+    @media only screen and (max-width: 37.5em) {
+      .realtors__list {
+        grid-template-columns: min-content max-content; } }
+  .realtors__img {
+    width: 7rem;
+    border-radius: 50%;
+    display: block; }
+  .realtors__sold {
+    text-transform: uppercase;
+    color: #aaa;
+    margin-top: -3px; }
+
+.features {
+  margin: 15rem 0;
+  grid-column: center-start / center-end;
+  display: grid;
+  /*每行等宽的三个子元素*/
+  /*grid-template-columns: repeat(3, 1fr);*/
+  /*自动填充, 最小为25rem就是整个feature全被内容占满且占一行的情况, 否则都等宽, 
+  由于自动宽度根据内容填充 他的宽度正好能一行挤满三个, 如果宽度减小, 宽度不足以放下三个, 
+   那就会将不够的挤下去, 变成2col 3row的排列, 最后变成1col 6row的排列
+  */
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 6rem;
+  /*内部所有的feature都靠上, 这样就不会由于default stretch 导致字不对齐了*/
+  align-items: start; }
+
+.feature {
+  float: left;
+  margin-bottom: 6rem;
+  /*每个feature内部也是个grid, 这个是2*2Grid, 
+    第col是icon所以是最小content, 第二个占剩下的, */
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-row-gap: 1.5rem;
+  grid-column-gap: 2.5rem; }
+  @supports (display: grid) {
+    .feature {
+      width: auto;
+      margin-bottom: 0; } }
+  .feature__icon {
+    fill: #c69963;
+    width: 4.5rem;
+    height: 4.5rem;
+    /*从row1开始span2, 就是把整个2*2的左边一列都占满*/
+    grid-row: 1 / span 2;
+    /*向上平移一点.*/
+    transform: translateY(-1rem); }
+  .feature__text {
+    font-size: 1.7rem; }
+
+.story__pictures {
+  background-color: #c69963;
+  grid-column: full-start / col-end 4;
+  background-image: linear-gradient(rgba(198, 153, 99, 0.5), rgba(198, 153, 99, 0.5)), url(../img/back.jpg);
+  background-size: cover;
+  /*做一个6*6的grid. 内部item都居中显示*/
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center; }
+  @media only screen and (max-width: 50em) {
+    .story__pictures {
+      /*col占满, 然后添加padding*/
+      grid-column: 1 / -1;
+      padding: 6rem; } }
+
+.story__img--1 {
+  /*这个照片是矩形, 比较长, 所以不是正好居中, 本来图片是贴着上面, 下面留白的, 
+    上面使用了align-items: center 所以它居中了, 所以上下留白了*/
+  width: 100%;
+  grid-row: 2 / 6;
+  grid-column: 2 / 6;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.1); }
+  @media only screen and (max-width: 50em) {
+    .story__img--1 {
+      /*col从1到5, 然后占整个row*/
+      grid-column: 1 / 5;
+      grid-row: 1 / -1; } }
+
+.story__img--2 {
+  /*这个照片从col4起 col7结束, width 115%所以较宽一点, 
+      从row4起, row6结束, 其实会超过这两行, 由于上面是align-items center, 所以就可以居中*/
+  width: 115%;
+  grid-row: 4 / 6;
+  grid-column: 4 / 7;
+  z-index: 20;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2); }
+  @media only screen and (max-width: 50em) {
+    .story__img--2 {
+      /*宽度缩回100, 然后占整个row*/
+      grid-row: 1 / -1;
+      width: 100%; } }
+
+.story__content {
+  background-color: #f9f7f6;
+  grid-column: col-start 5 / full-end;
+  padding: 6rem 8vw;
+  /* display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;  */
+  display: grid;
+  /*垂直居中水平居左*/
+  align-items: center;
+  justify-items: start; }
+  @media only screen and (max-width: 50em) {
+    .story__content {
+      /*屏幕变小占一行*/
+      grid-column: 1 / -1;
+      /*占到image上面*/
+      grid-row: 5 / 6; } }
+
+.story__text {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-bottom: 4rem; }
+
+.homes {
+  grid-column: center-start / center-end;
+  margin: 15rem 0;
+  display: grid;
+  /*也是自适应的col 每一个最小25rem, 如果一行放不下四个25rem, 那么一行就三个items, 然后内容自动扩充
+    如果width缩小, 导致一行放不下三个25rem, 那么就一行变两个, 变成三行*/
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 7rem; }
+
+.home {
+  background-color: #f9f7f6;
+  /*每个小的item也是一个grid container, 他col2个各自占一半.*/
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 3.5rem;
+  /*这两个的margin-top高一点*/ }
+  .home__img {
+    /*图片宽度自适应, row占一行, column占两行*/
+    width: 100%;
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    z-index: 1; }
+  .home__like {
+    /*右上角的小爱心, 第一行, 第二列, 固定高度宽度颜色*/
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    fill: #c69963;
+    height: 2.5rem;
+    width: 2.5rem;
+    z-index: 2;
+    /*item自己水平居右*/
+    justify-self: end;
+    margin: 1rem; }
+  .home__name {
+    /*row占第一行, column占两行*/
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    /*水平居中, 垂直居下*/
+    justify-self: center;
+    align-self: end;
+    z-index: 3;
+    /*宽度为80%*/
+    width: 80%;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 1.6rem;
+    /*文字居中*/
+    text-align: center;
+    padding: 1.25rem;
+    background-color: #101d2c;
+    color: #fff;
+    font-weight: 400;
+    /*Y轴下移一半*/
+    transform: translateY(50%); }
+  .home__location, .home__rooms {
+    margin-top: 2.5rem; }
+  .home__location, .home__rooms, .home__area, .home__price {
+    /*这四个图标水平居中, 由于没有指定grid那就默认占一格, 按顺序排列*/
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center; }
+    .home__location svg, .home__rooms svg, .home__area svg, .home__price svg {
+      fill: #c69963;
+      height: 2rem;
+      width: 2rem;
+      margin-right: 1rem; }
+  .home__btn {
+    /*btn占一行*/
+    grid-column: 1 / -1; }
+
+.gallery {
+  grid-column: full-start/full-end;
+  display: grid;
+  /*grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(7, 5vw);*/
+  /*7等分row, 每个占viewport width的5%, col均分八个*/
+  grid-template: repeat(7, 5vw)/repeat(8, 1fr);
+  grid-gap: 1.5rem;
+  padding: 1.5rem; }
+  .gallery__item--1 {
+    grid-row: 1 / span 2;
+    grid-column: 1 / span 2; }
+  .gallery__item--2 {
+    grid-row: 1 / span 3;
+    grid-column: 3 / span 3; }
+  .gallery__item--3 {
+    grid-row: 1 / span 2;
+    grid-column: 6 / 7; }
+  .gallery__item--4 {
+    grid-row: 1 / span 2;
+    grid-column: 7 / -1; }
+  .gallery__item--5 {
+    grid-row: 3 / span 3;
+    grid-column: 1 / span 2; }
+  .gallery__item--6 {
+    grid-row: 4 / span 2;
+    grid-column: 3 / span 2; }
+  .gallery__item--7 {
+    grid-row: 4 / 5;
+    grid-column: 5 / 6; }
+  .gallery__item--8 {
+    grid-row: 3 / span 2;
+    grid-column: 6 / span 2; }
+  .gallery__item--9 {
+    grid-row: 3 / span 3;
+    grid-column: 8 / -1; }
+  .gallery__item--10 {
+    grid-row: 6 / span 2;
+    grid-column: 1 / 2; }
+  .gallery__item--11 {
+    grid-row: 6 / span 2;
+    grid-column: 2 / span 2; }
+  .gallery__item--12 {
+    grid-row: 6 / span 2;
+    grid-column: 4 / 5; }
+  .gallery__item--13 {
+    grid-row: 5 / span 3;
+    grid-column: 5 / span 3; }
+  .gallery__item--14 {
+    grid-row: 6 / span 2;
+    grid-column: 8 / -1; }
+  .gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block; }
+
+.footer {
+  background-color: #101d2c;
+  grid-column: full-start / full-end;
+  padding: 8rem; }
+
+.nav {
+  list-style: none;
+  display: grid;
+  /*每个content宽度少于15rem就会挤到下一行*/
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
+  /*子元素垂直居中*/
+  align-items: center;
+  /*点击上移特效*/ }
+  .nav__link:link, .nav__link:visited {
+    font-size: 1.4rem;
+    color: #fff;
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1.5rem;
+    display: block;
+    transition: all .2s; }
+  .nav__link:hover, .nav__link:active {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px); }
+
+.copyright {
+  font-size: 1.4rem;
+  color: #aaa;
+  margin-top: 6rem;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  width: 70%; }

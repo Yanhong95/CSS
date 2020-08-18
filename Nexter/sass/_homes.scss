@@ -1,0 +1,91 @@
+.homes {
+  grid-column: center-start / center-end;
+  margin: 15rem 0;
+
+  display: grid;
+  /*也是自适应的col 每一个最小25rem, 如果一行放不下四个25rem, 那么一行就三个items, 然后内容自动扩充
+    如果width缩小, 导致一行放不下三个25rem, 那么就一行变两个, 变成三行*/
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 7rem;
+}
+
+.home {
+  background-color: $color-grey-light-1;
+  /*每个小的item也是一个grid container, 他col2个各自占一半.*/
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 3.5rem;
+
+  &__img {
+      /*图片宽度自适应, row占一行, column占两行*/
+      width: 100%;
+      grid-row: 1 / 2;
+      grid-column: 1 / -1;
+      z-index: 1;
+  }
+
+  &__like {
+     /*右上角的小爱心, 第一行, 第二列, 固定高度宽度颜色*/
+      grid-row: 1 / 2;
+      grid-column: 2 / 3;
+      fill: $color-primary;
+      height: 2.5rem;
+      width: 2.5rem;
+      z-index: 2;
+      /*item自己水平居右*/
+      justify-self: end;
+      margin: 1rem;
+  }
+
+  &__name {
+      /*row占第一行, column占两行*/
+      grid-row: 1 / 2;
+      grid-column: 1 / -1;
+      /*水平居中, 垂直居下*/
+      justify-self: center;
+      align-self: end;
+      z-index: 3;
+      /*宽度为80%*/
+      width: 80%;
+      font-family: $font-display;
+      font-size: 1.6rem;
+      /*文字居中*/
+      text-align: center;
+      padding: 1.25rem;
+      background-color: $color-secondary;
+      color: #fff;
+      font-weight: 400;
+      /*Y轴下移一半*/
+      transform: translateY(50%);
+  }
+
+  /*这两个的margin-top高一点*/
+  &__location,
+  &__rooms {
+      margin-top: 2.5rem;
+  }
+
+  &__location,
+  &__rooms,
+  &__area,
+  &__price {
+    /*这四个图标水平居中, 由于没有指定grid那就默认占一格, 按顺序排列*/
+      font-size: 1.5rem;
+      margin-left: 2rem;
+
+      display: flex;
+      align-items: center;
+
+      svg {
+          fill: $color-primary;
+          height: 2rem;
+          width: 2rem;
+          margin-right: 1rem;
+      }
+  }
+
+  &__btn {
+      /*btn占一行*/
+      grid-column: 1 / -1;
+  }
+}

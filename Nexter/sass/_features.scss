@@ -1,0 +1,47 @@
+.features{
+  margin: 15rem 0;
+  grid-column: center-start / center-end;
+  
+  display: grid;
+  /*每行等宽的三个子元素*/
+  /*grid-template-columns: repeat(3, 1fr);*/
+  /*自动填充, 最小为25rem就是整个feature全被内容占满且占一行的情况, 否则都等宽, 
+  由于自动宽度根据内容填充 他的宽度正好能一行挤满三个, 如果宽度减小, 宽度不足以放下三个, 
+   那就会将不够的挤下去, 变成2col 3row的排列, 最后变成1col 6row的排列
+  */
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 6rem;
+  /*内部所有的feature都靠上, 这样就不会由于default stretch 导致字不对齐了*/
+  align-items: start;
+}
+
+.feature {
+  float: left;
+  // width: 33.3333%;
+  margin-bottom: 6rem;
+
+  @supports(display: grid) {
+      width: auto;
+      margin-bottom: 0;
+  }
+  /*每个feature内部也是个grid, 这个是2*2Grid, 
+    第col是icon所以是最小content, 第二个占剩下的, */
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-row-gap: 1.5rem;
+  grid-column-gap: 2.5rem;
+
+  &__icon {
+      fill: $color-primary;
+      width: 4.5rem;
+      height: 4.5rem;
+      /*从row1开始span2, 就是把整个2*2的左边一列都占满*/
+      grid-row: 1 / span 2;
+      /*向上平移一点.*/
+      transform: translateY(-1rem);
+  }
+
+  &__text {
+      font-size: 1.7rem;
+  }
+}

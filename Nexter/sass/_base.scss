@@ -13,3 +13,62 @@ $color-grey-dark-2: #6D5D4B;
 // FONT VARIABLES
 $font-primary: 'Nunito', sans-serif;
 $font-display: 'Josefin Sans', sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em;   // 1200px
+$bp-large: 62.5em;   // 1000px
+$bp-medium: 50em;    // 800px;
+$bp-small: 37.5em;    // 600px;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+
+    @media only screen and (max-width: $bp-largest) {
+        font-size: 50%;
+    }
+}
+
+body {
+    font-family: $font-primary;
+    color: $color-grey-dark-2;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.container{
+  display: grid;
+  /*第一个row是header, 占80%的viewhight, 
+    第二个row是feature, 自适应自身的内容高度, min-content
+    第三个row是story, 有两个component, 两个等宽登高,所以只需要保证每个占40viewWidth
+    第四个第五个第六个是homes, gallery和 footer都只需要自适应内容高度即可 min-content
+    */
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+  /*
+    第一个col是sidebar一直保持8rem
+    第三个col是main-content是个8等分区域, 主要内容在这里均匀陈列, 最小宽度要保持他的content宽, 最大宽度是vw的八分之一 14rem
+    第二个1fr和最后一个1fr是主要conten的周围留白区域, 必要时可以借用与中间的主要内容区域
+  */
+  grid-template-columns: [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+  
+  @media only screen and (max-width: $bp-large) {
+    /*屏幕宽度小于900px, 将sidebar一上去变成一个row, 那就去掉第一个column, 然后再row加上一个6rem 在开头*/
+    grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+    grid-template-columns: [full-start] minmax(6rem, 1fr) 
+        [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] 
+        minmax(6rem, 1fr) [full-end];
+  }
+
+  @media only screen and (max-width: $bp-medium) {
+    grid-template-rows: 6rem calc(100vh - 6rem);
+  }
+
+}

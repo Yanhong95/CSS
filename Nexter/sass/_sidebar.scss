@@ -1,0 +1,50 @@
+.sidebar {
+  background-color: $color-primary;
+  grid-column: sidebar-start / sidebar-end;
+  /*row 从顶部到底部占满*/
+  grid-row: 1 / -1;
+
+  display: flex;
+  /*内部item水平居中*/
+  justify-content: center;
+
+  @media only screen and (max-width: $bp-large) {
+      /*屏幕变小, 占据一行, 内item水平居右, 垂直居中*/
+      grid-column: 1 / -1;
+      grid-row: 1 / 2;
+      justify-content: flex-end;
+      align-items: center;
+  }
+}
+
+.nav-btn {
+  border: none;
+  border-radius: 0;
+
+  /*btn是自己画出来的, 高2px的白线, 然后上下两个pseudo class*/
+  background-color: #fff;
+  height: 2px;
+  width: 4.5rem;
+  margin-top: 4rem;
+
+  &::before,
+  &::after {
+      background-color: #fff;
+      height: 2px;
+      width: 4.5rem;
+      content: "";
+      display: block;
+  }
+  /*高度调整*/
+  &::before { transform: translateY(-1.5rem); }
+  &::after { transform: translateY(1.3rem); }
+
+  @media only screen and (max-width: $bp-large) {
+      /*小屏幕高度调整*/
+      margin-top: 0;
+      margin-right: 3rem;
+
+      &::before { transform: translateY(-1.2rem); }
+      &::after { transform: translateY(1rem); }
+  }
+}

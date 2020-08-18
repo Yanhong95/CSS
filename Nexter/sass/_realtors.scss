@@ -1,0 +1,49 @@
+.realtors{
+  background-color: $color-secondary;
+  grid-column: col-start 7 / full-end;
+  padding: 3rem;
+  display: grid;
+  /*将自己内部子元素整个box居中*/
+  justify-content: center;
+  align-content: center;
+  /*子元素在所在box内的内容居中*/
+  justify-items: center;
+  row-gap: 2rem;
+
+  @media only screen and (max-width: $bp-medium) {
+    /*屏幕尺寸变小后占一行*/
+    grid-column: 1 / -1;
+  } 
+
+  &__list{
+    display: grid;
+    /*list grid 分两col 左边mincontent适合图片本身尺寸, 然后后面的text上下行占一col*/
+    grid-template-columns: min-content max-content;
+    column-gap: 2rem;
+    /*row-gap 要用viewport hight,这样变换屏幕尺寸的时候也能岁比例变化*/
+    row-gap: 5vh;
+    /*下面的子item垂直居中*/
+    align-items: center;
+
+    @media only screen and (max-width: $bp-medium) {
+      /*屏幕变小后占一行, 然后就三个两col, 图片 info 图片 info 图片 info这样*/
+      grid-template-columns: repeat(3, min-content max-content);
+    }
+
+    @media only screen and (max-width: $bp-small) {
+      grid-template-columns: min-content max-content;
+    }
+  }
+
+  &__img{
+    width: 7rem;
+    border-radius: 50%;
+    display: block;
+  }
+
+  &__sold {
+    text-transform: uppercase;
+    color: $color-grey-light-2;
+    margin-top: -3px;
+}
+}
